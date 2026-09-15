@@ -4,9 +4,9 @@
 
 <div align="center">
 
-<img src="recursos/gatoguard.png" width="104" alt="GatoGuard">
+<img src="recursos/keycat.png" width="104" alt="KeyCat">
 
-# GatoGuard
+# KeyCat
 
 ### Tu gato se paseó por el teclado. Éste lo vio venir.
 
@@ -15,8 +15,8 @@ tecleo** —sin cámara, sin un modelo pesado—, bloquea la entrada hasta que u
 humano la desbloquea, y deshace el «modo raro» que dejan los gatos: modificadores
 atorados, Sticky Keys, CapsLock.
 
-[![Release](https://img.shields.io/github/v/release/leostriker111/GatoGuard?style=flat-square&label=descargar)](../../releases)
-[![Descargas](https://img.shields.io/github/downloads/leostriker111/GatoGuard/total?style=flat-square)](../../releases)
+[![Release](https://img.shields.io/github/v/release/leostriker111/KeyCat?style=flat-square&label=descargar)](../../releases)
+[![Descargas](https://img.shields.io/github/downloads/leostriker111/KeyCat/total?style=flat-square)](../../releases)
 [![Plataforma: Windows](https://img.shields.io/badge/plataforma-Windows-0078D6?style=flat-square&logo=windows)](#instalación)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![Licencia: PolyForm NC](https://img.shields.io/badge/licencia-PolyForm%20Noncommercial-ff69b4?style=flat-square)](LICENSE)
@@ -30,6 +30,11 @@ que es lo único que hace esto y lleva de shareware desde los noventa.
 
 > Nació porque su autor tiene dos gatos a los que les encanta pasearse sobre el
 > teclado, y no existía un equivalente libre por comportamiento para Windows.
+
+> [!NOTE]
+> **Antes se llamaba GatoGuard.** Es el mismo programa con mejor nombre. GitHub
+> redirige todos los enlaces viejos, y si ya lo tenías instalado tu configuración
+> se muda sola la primera vez que corras esta versión.
 
 ## Qué es
 
@@ -67,28 +72,28 @@ diccionario de frecuencias localmente, y no se guarda ni se manda nada.
 
 ## Instalación
 
-**A — el ejecutable (lo más fácil).** Descarga `GatoGuard.exe` de
+**A — el ejecutable (lo más fácil).** Descarga `KeyCat.exe` de
 [Releases](../../releases) y ábrelo. Aparece un gatito en la bandeja del sistema.
 Listo.
 
 **B — con pip, desde el código:**
 
 ```bash
-git clone https://github.com/leostriker111/GatoGuard.git
-cd GatoGuard
+git clone https://github.com/leostriker111/KeyCat.git
+cd KeyCat
 pip install .
-gatoguard
+keycat
 ```
 
 **C — correrlo directo:**
 
 ```bash
 pip install -r requirements.txt
-python gatoguard.py
+python keycat.py
 ```
 
-Para que arranque solo con Windows, crea un acceso directo a `GatoGuard.exe` (o a
-`pythonw gatoguard.py`) en:
+Para que arranque solo con Windows, crea un acceso directo a `KeyCat.exe` (o a
+`pythonw keycat.py`) en:
 
 ```
 %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
@@ -110,9 +115,9 @@ Para que arranque solo con Windows, crea un acceso directo a `GatoGuard.exe` (o 
 | **Salir** | Menú de la bandeja → **Salir** |
 
 La configuración se guarda en `config.json` — junto al script, o en
-`%AppData%\GatoGuard\` si usas el `.exe`.
+`%AppData%\KeyCat\` si usas el `.exe`.
 
-> Al suspender la PC, la librería de teclado pierde su hook. GatoGuard **se
+> Al suspender la PC, la librería de teclado pierde su hook. KeyCat **se
 > reinicia solo** al despertar (proceso nuevo = hooks nuevos). Si alguna vez no
 > responde, **bandeja → «Reactivar detección»** hace lo mismo a mano.
 
@@ -204,7 +209,7 @@ tenga registrada esa combinación globalmente.
 
 | archivo | qué es |
 |---|---|
-| `gatoguard.py` | La aplicación: hooks, bandeja, GUI, overlay de bloqueo. |
+| `keycat.py` | La aplicación: hooks, bandeja, GUI, overlay de bloqueo. |
 | `deteccion.py` | **Lógica pura de detección** más la predicción de texto. Aquí no hay Windows, que es por lo que es el archivo con pruebas. |
 | `hooks.py` | El motor de teclado sobre `ctypes`: el hook de bajo nivel, la retención y la reinyección. |
 | `winutils.py` | Helpers de Windows: el campo de texto enfocado, el reset del teclado, los idiomas instalados. |
@@ -219,7 +224,7 @@ pip install pyinstaller
 ./build.ps1
 ```
 
-Queda en `dist/GatoGuard.exe`.
+Queda en `dist/KeyCat.exe`.
 
 ### El problema que le dio forma
 

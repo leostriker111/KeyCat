@@ -4,9 +4,9 @@
 
 <div align="center">
 
-<img src="recursos/gatoguard.png" width="104" alt="GatoGuard">
+<img src="recursos/keycat.png" width="104" alt="KeyCat">
 
-# GatoGuard
+# KeyCat
 
 ### Your cat walked across the keyboard. This one saw it coming.
 
@@ -14,8 +14,8 @@ Detects a cat on the keyboard by **how the typing behaves** — no camera, no he
 model — locks the input until a human unlocks it, and undoes the "weird mode"
 cats leave behind: stuck modifiers, Sticky Keys, CapsLock.
 
-[![Release](https://img.shields.io/github/v/release/leostriker111/GatoGuard?style=flat-square&label=download)](../../releases)
-[![Downloads](https://img.shields.io/github/downloads/leostriker111/GatoGuard/total?style=flat-square)](../../releases)
+[![Release](https://img.shields.io/github/v/release/leostriker111/KeyCat?style=flat-square&label=download)](../../releases)
+[![Downloads](https://img.shields.io/github/downloads/leostriker111/KeyCat/total?style=flat-square)](../../releases)
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D6?style=flat-square&logo=windows)](#install)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![License: PolyForm NC](https://img.shields.io/badge/license-PolyForm%20Noncommercial-ff69b4?style=flat-square)](LICENSE)
@@ -30,6 +30,11 @@ nineties.
 
 > It exists because its author has two cats who love to stroll across the
 > keyboard, and there was no open-source behaviour-based equivalent for Windows.
+
+> [!NOTE]
+> **This used to be called GatoGuard.** Same program, better name. GitHub
+> redirects every old link, and if you already had it installed your settings
+> move themselves across the first time you run this version.
 
 ## What it is
 
@@ -65,27 +70,27 @@ frequency dictionary locally, and nothing is stored or sent.
 
 ## Install
 
-**A — the executable (easiest).** Download `GatoGuard.exe` from
+**A — the executable (easiest).** Download `KeyCat.exe` from
 [Releases](../../releases) and open it. A cat appears in the system tray. Done.
 
 **B — with pip, from source:**
 
 ```bash
-git clone https://github.com/leostriker111/GatoGuard.git
-cd GatoGuard
+git clone https://github.com/leostriker111/KeyCat.git
+cd KeyCat
 pip install .
-gatoguard
+keycat
 ```
 
 **C — run it directly:**
 
 ```bash
 pip install -r requirements.txt
-python gatoguard.py
+python keycat.py
 ```
 
-To start it with Windows, put a shortcut to `GatoGuard.exe` (or to
-`pythonw gatoguard.py`) in:
+To start it with Windows, put a shortcut to `KeyCat.exe` (or to
+`pythonw keycat.py`) in:
 
 ```
 %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
@@ -107,9 +112,9 @@ To start it with Windows, put a shortcut to `GatoGuard.exe` (or to
 | **Quit** | Tray menu → **Salir** |
 
 Settings are saved in `config.json` — next to the script, or in
-`%AppData%\GatoGuard\` if you're running the `.exe`.
+`%AppData%\KeyCat\` if you're running the `.exe`.
 
-> When the PC suspends, the keyboard library loses its hook. GatoGuard
+> When the PC suspends, the keyboard library loses its hook. KeyCat
 > **restarts itself** on wake (a new process means new hooks). If it ever stops
 > responding, **tray → "Reactivar detección"** does the same thing by hand.
 
@@ -197,7 +202,7 @@ combination globally.
 
 | file | what it is |
 |---|---|
-| `gatoguard.py` | The application: hooks, tray, GUI, lock overlay. |
+| `keycat.py` | The application: hooks, tray, GUI, lock overlay. |
 | `deteccion.py` | **Pure detection logic** plus text prediction. No Windows in here, which is why it's the file with tests. |
 | `hooks.py` | The keyboard engine on `ctypes`: the low-level hook, retention and re-injection. |
 | `winutils.py` | Windows helpers: the focused text field, keyboard reset, installed languages. |
@@ -212,7 +217,7 @@ pip install pyinstaller
 ./build.ps1
 ```
 
-It lands in `dist/GatoGuard.exe`.
+It lands in `dist/KeyCat.exe`.
 
 ### The problem that shaped it
 

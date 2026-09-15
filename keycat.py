@@ -15,7 +15,15 @@ import winutils
 
 if getattr(sys, "frozen", False):          # corriendo como .exe (PyInstaller)
     BUNDLE = sys._MEIPASS                   # datos de solo lectura (diccionarios)
-    DATA = os.path.join(os.environ.get("APPDATA", "."), "GatoGuard")
+    _APPDATA = os.environ.get("APPDATA", ".")
+    DATA = os.path.join(_APPDATA, "KeyCat")
+    # el proyecto se llamaba GatoGuard: si quedo configuracion vieja, se trae
+    _VIEJO = os.path.join(_APPDATA, "GatoGuard")
+    if not os.path.isdir(DATA) and os.path.isdir(_VIEJO):
+        try:
+            os.rename(_VIEJO, DATA)
+        except OSError:
+            DATA = _VIEJO                   # si no se pudo mover, se sigue usando
 else:
     BUNDLE = DATA = os.path.dirname(os.path.abspath(__file__))
 os.makedirs(DATA, exist_ok=True)
@@ -331,7 +339,7 @@ def watchdog():
 
 # ---------------- bandeja ----------------
 def icono_img():
-    ico = os.path.join(BUNDLE, "gatoguard.ico")
+    ico = os.path.join(BUNDLE, "keycat.ico")
     if os.path.exists(ico):
         try:
             return Image.open(ico)
@@ -361,14 +369,14 @@ def tray_thread():
         pystray.MenuItem("Resetear teclado ahora", lambda i, x: cmd_queue.put(("RESET", None))),
         pystray.MenuItem("Salir", lambda i, x: cmd_queue.put(("QUIT", None))),
     )
-    icon = pystray.Icon("GatoGuard", icono_img(), "GatoGuard", menu)
+    icon = pystray.Icon("KeyCat", icono_img(), "KeyCat", menu)
     icon.run()
 
 
 # ---------------- config GUI ----------------
 def build_settings():
     win = tk.Toplevel(root)
-    win.title("GatoGuard - Configuración")
+    win.title("KeyCat - Configuración")
     win.configure(bg="#1a1a20", padx=18, pady=16)
     win.protocol("WM_DELETE_WINDOW", win.withdraw)
     win.resizable(False, False)
@@ -656,7 +664,7 @@ def _instancia_unica():
     """Evita que se apilen varias copias (que pelearian por los hotkeys)."""
     global _mutex
     import ctypes
-    _mutex = ctypes.windll.kernel32.CreateMutexW(None, False, "GatoGuard_SingleInstance")
+    _mutex = ctypes.windll.kernel32.CreateMutexW(None, False, "KeyCat_SingleInstance")
     return ctypes.windll.kernel32.GetLastError() != 183  # ERROR_ALREADY_EXISTS
 
 

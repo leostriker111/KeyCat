@@ -1,33 +1,28 @@
-"""Genera gatoguard.ico (varios tamaños) con la carita de gato. Reproducible."""
-from PIL import Image, ImageDraw
+"""Genera keycat.ico (varios tamanos) a partir de recursos/keycat.png.
 
-S = 256
-img = Image.new("RGBA", (S, S), (0, 0, 0, 0))
-d = ImageDraw.Draw(img)
+El icono es un gato parado sobre el teclado de una laptop, compuesto con los
+emoji del sistema. La fuente esta en recursos/keycat.html: se abre en un
+navegador y se captura a 512x512 con fondo transparente. Este script solo hace
+el paso de PNG a .ico, que es el que necesita Windows.
 
-azul = (58, 122, 254, 255)
-oscuro = (16, 16, 20, 255)
+    python make_icon.py
+"""
+from pathlib import Path
 
-# fondo redondeado azul
-d.rounded_rectangle([8, 8, S - 8, S - 8], radius=56, fill=azul)
+from PIL import Image
 
-# orejas
-d.polygon([(70, 96), (104, 40), (128, 96)], fill=oscuro)
-d.polygon([(128, 96), (152, 40), (186, 96)], fill=oscuro)
+AQUI = Path(__file__).parent
+ORIGEN = AQUI / "recursos" / "keycat.png"
+DESTINO = AQUI / "keycat.ico"
 
-# cara
-d.ellipse([56, 88, 200, 216], fill=oscuro)
+TAMANOS = [(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)]
 
-# ojos
-d.ellipse([92, 132, 112, 160], fill=azul)
-d.ellipse([144, 132, 164, 160], fill=azul)
+if not ORIGEN.exists():
+    raise SystemExit(f"no encuentro {ORIGEN} — mira el docstring de arriba")
 
-# nariz + bigotes
-d.polygon([(120, 168), (136, 168), (128, 180)], fill=azul)
-for y in (170, 182):
-    d.line([(60, y), (104, y - 4)], fill=azul, width=4)
-    d.line([(152, y - 4), (196, y)], fill=azul, width=4)
+img = Image.open(ORIGEN).convert("RGBA")
+if img.size != (512, 512):
+    img = img.resize((512, 512), Image.LANCZOS)
 
-tam = [(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)]
-img.save("gatoguard.ico", sizes=tam)
-print("gatoguard.ico generado")
+img.save(DESTINO, sizes=TAMANOS)
+print(f"{DESTINO.name} generado con {len(TAMANOS)} tamanos")
