@@ -1,50 +1,75 @@
-# 🐈 GatoGuard
+<p align="center">
+  <b>English</b> · <a href="LEEME.md">Español</a>
+</p>
 
-[![Release](https://img.shields.io/github/v/release/leostriker111/GatoGuard)](https://github.com/leostriker111/GatoGuard/releases)
-[![Descargas](https://img.shields.io/github/downloads/leostriker111/GatoGuard/total)](https://github.com/leostriker111/GatoGuard/releases)
-[![Plataforma](https://img.shields.io/badge/plataforma-Windows-0078D6?logo=windows)](#)
-[![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white)](#)
-[![Licencia](https://img.shields.io/badge/licencia-PolyForm%20Noncommercial-ff69b4)](LICENSE)
+<div align="center">
 
-Anti-gato para el teclado en **Windows**, al estilo [PawSense](https://www.bitboost.com/pawsense/) pero libre y en tu idioma.
+<img src="recursos/gatoguard.png" width="104" alt="GatoGuard">
 
-Detecta cuando un gato se sube al teclado analizando **el comportamiento del tecleo** (sin cámara) y bloquea la entrada hasta que un humano lo desbloquea. También destraba el "modo raro" que dejan los gatos (modificadores atorados, Sticky Keys, etc.).
+# GatoGuard
 
-> Nació porque tengo dos gatos a los que les encanta pasearse sobre el teclado. No existía un clon open source de PawSense para Windows con detección por comportamiento, así que aquí está.
+### Your cat walked across the keyboard. This one saw it coming.
 
----
+Detects a cat on the keyboard by **how the typing behaves** — no camera, no heavy
+model — locks the input until a human unlocks it, and undoes the "weird mode"
+cats leave behind: stuck modifiers, Sticky Keys, CapsLock.
 
-## ✨ Características
+[![Release](https://img.shields.io/github/v/release/leostriker111/GatoGuard?style=flat-square&label=download)](../../releases)
+[![Downloads](https://img.shields.io/github/downloads/leostriker111/GatoGuard/total?style=flat-square)](../../releases)
+[![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D6?style=flat-square&logo=windows)](#install)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![License: PolyForm NC](https://img.shields.io/badge/license-PolyForm%20Noncommercial-ff69b4?style=flat-square)](LICENSE)
 
-- **Detección por comportamiento** (sin cámara, sin IA pesada):
-  - Ráfaga de teclas sin sentido
-  - Varias teclas mantenidas a la vez (una pata aplasta varias)
-  - Una tecla pegada mucho tiempo (gato sentado encima)
-- **Frenos de emergencia** — cuando la certeza es alta no espera a nada, corta al instante:
-  - *Velocidad imposible*: 6 teclas en 0.18 s (más rápido que cualquier mano)
-  - *Misma tecla machacada*: `aaaaaaa` — antes contaba como una sola tecla
-  - *Texto sin sentido*: `sdrtg`, `rz555` — aunque se escriba despacio (en Blender, `rz555` es un desastre)
-- **Retención de teclas** (lo que hace la diferencia): cada tecla se detiene unos milisegundos **antes de entrar a la máquina**. Si en ese lapso no se detecta un gato, se reinyecta tal cual y no notas nada; si se detecta, se **descarta y jamás llega a ninguna app**. Configurable (60 ms por defecto, 0 = apagado) y se apaga sola en juegos a pantalla completa.
-- **Predicción de texto** para no botar cuando *tú* escribes rápido: compara contra un diccionario de frecuencias, tolera *typos* y errores de dedo. Una palabra —o principio de palabra— válida **baja las sospechas** y tolera más ráfaga; la basura pura dispara antes.
-- **Multi-idioma auto-detectado**: agarra los idiomas de tu teclado de Windows. Incluye diccionarios de español e inglés; otros (p. ej. japonés en *romaji*) los cubre una heurística de vocales.
-- **Motor propio de teclado** (ctypes, sin dependencias de terceros): un solo hook de bajo nivel persistente hace detección *y* bloqueo. Ve **todas** las teclas — F1–F24, la tecla Windows, especiales — y bloquea de verdad `F11`, `Win+Ctrl+D` y demás combos que otras herramientas dejan pasar.
-- **Atajos a prueba de robo**: se detectan dentro del propio hook, así que funcionan aunque otra app ya tenga esa combinación registrada.
-- **Consciente de la app al frente**: relaja la detección en juegos a pantalla completa e ignora las teclas típicas de juego (WASD, flechas). Lista de apps a ignorar configurable.
-- **Reset del teclado** al desbloquear: suelta modificadores atorados, apaga CapsLock y desactiva Sticky/Filter/Toggle keys.
-- **Congelar el mouse** con `Ctrl+Alt+M` (aviso en una esquina): el gato juega con el puntero, tú lo congelas cuando quieras.
-- **Modo descanso**: `Ctrl+Alt+G` deja de detectar sin cerrar la app (🐈 *hay gatos cerca* ↔ 😴 *no hay gatos cerca*), con panel de estado en la esquina.
-- **Atajos que funcionan aun bloqueado**: `Ctrl+Alt+U` desbloquea, `Ctrl+Alt+M` congela el mouse, `Ctrl+Alt+H` oculta el panel.
-- **Ícono en la bandeja** con GUI de configuración (todo ajustable en vivo).
-- No requiere permisos de administrador.
+</div>
 
 ---
 
-## 🚀 Instalación
+A free, Spanish-and-English clone of [PawSense](https://www.bitboost.com/pawsense/),
+which is the only other thing that does this and has been shareware since the
+nineties.
 
-### Opción A — Ejecutable (lo más fácil)
-Descarga `GatoGuard.exe` de la sección [Releases](../../releases) y ábrelo. Aparece un gatito en la bandeja del sistema. Listo.
+> It exists because its author has two cats who love to stroll across the
+> keyboard, and there was no open-source behaviour-based equivalent for Windows.
 
-### Opción B — Con pip (desde el código)
+## What it is
+
+A **tray application**. You run it, a small cat appears next to the clock, and
+you forget about it until the day it saves you. There is no command line and
+nothing to configure before it works.
+
+The thing that makes it different from a "lock keyboard" utility is that it has to
+decide, continuously and in a few milliseconds, whether the thing typing is a
+person in a hurry or an animal. Getting that wrong in either direction is
+useless: block the human and it's spyware, miss the cat and it's decoration.
+
+## Purpose and scope
+
+**The purpose.** Cats sit on keyboards. The damage isn't the gibberish — it's
+`Ctrl+S` over a good file, `rz555` in Blender, a shortcut you didn't know
+existed. This buys you the two seconds you need to pick the cat up.
+
+**What it covers.** Detection, blocking before the keys reach any application,
+recovering the keyboard afterwards, and freezing the mouse when the cat decides
+the pointer is prey instead.
+
+**What it does not do.** No camera, no cloud, no telemetry, no administrator
+rights. It does not watch *what* you write — the text prediction runs against a
+frequency dictionary locally, and nothing is stored or sent.
+
+## Contents
+
+- [What it is](#what-it-is) · [Purpose and scope](#purpose-and-scope)
+- [Install](#install) · [Use](#use) · [Tuning the sensitivity](#tuning-the-sensitivity)
+- [How the detection works](#how-the-detection-works)
+- [For developers](#contributing)
+
+## Install
+
+**A — the executable (easiest).** Download `GatoGuard.exe` from
+[Releases](../../releases) and open it. A cat appears in the system tray. Done.
+
+**B — with pip, from source:**
+
 ```bash
 git clone https://github.com/leostriker111/GatoGuard.git
 cd GatoGuard
@@ -52,75 +77,168 @@ pip install .
 gatoguard
 ```
 
-### Opción C — Correr directo
+**C — run it directly:**
+
 ```bash
 pip install -r requirements.txt
 python gatoguard.py
 ```
 
-Para que arranque solo con Windows, crea un acceso directo a `GatoGuard.exe` (o a `pythonw gatoguard.py`) en:
+To start it with Windows, put a shortcut to `GatoGuard.exe` (or to
+`pythonw gatoguard.py`) in:
+
 ```
 %AppData%\Microsoft\Windows\Start Menu\Programs\Startup
 ```
 
+## Use
+
+| action | how |
+|---|---|
+| **Unlock** | Click anywhere on the lock screen, or <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>U</kbd> |
+| **Rest mode** — stop detecting without closing | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>G</kbd>, toggling between 🐈 *cats nearby* and 😴 *no cats nearby* |
+| **Freeze / unfreeze the mouse** | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>M</kbd> |
+| **Declare "there's a cat here!"** | <kbd>Shift</kbd>+<kbd>A</kbd>+<kbd>S</kbd>+<kbd>D</kbd> — alert mode, fussier thresholds. If the cat presses it, so much the better: it confirms the premise 🐈 |
+| **Hide / show the status panel** | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> |
+| **Minimise the panel** | Click the cat on the panel |
+| **Move the panel** | Drag it anywhere; it remembers |
+| **Configure** | Right-click the tray icon → **Configuración** |
+| **Reset the keyboard now** | Tray menu → **Resetear teclado ahora** |
+| **Quit** | Tray menu → **Salir** |
+
+Settings are saved in `config.json` — next to the script, or in
+`%AppData%\GatoGuard\` if you're running the `.exe`.
+
+> When the PC suspends, the keyboard library loses its hook. GatoGuard
+> **restarts itself** on wake (a new process means new hooks). If it ever stops
+> responding, **tray → "Reactivar detección"** does the same thing by hand.
+
+### Tuning the sensitivity
+
+If it trips while you're typing normally, open **Configuración** and raise *Teclas
+en ráfaga* or *Teclas simultáneas*, or switch off whichever signal annoys you. If
+it's too slow to catch the cat, lower them.
+
+## How the detection works
+
+A global keyboard hook feeds a detector with every event. It trips on:
+
+1. **Simultaneous** — N or more keys pressed within 1.5 s and still held. One paw
+   covers several keys.
+2. **Burst** — K distinct keys in a short window **and** what was typed doesn't
+   look like a real word.
+3. **Stuck key** — one key (not space, backspace, arrows or a modifier) held for
+   more than X ms. A cat sitting down.
+
+**Emergency brakes**, for when certainty is high enough not to wait:
+
+- *Impossible speed* — 6 keys in 0.18 s, faster than any hand.
+- *Same key mashed* — `aaaaaaa`, which used to count as a single key.
+- *Nonsense text* — `sdrtg`, `rz555`, even typed slowly. In Blender, `rz555` is a
+  disaster.
+
+**Key retention is what makes it work.** Every keystroke is held for a few
+milliseconds *before it enters the machine*. If no cat is detected in that window
+it's re-injected untouched and you never notice; if one is, the key is
+**discarded and never reaches any application**. 60 ms by default, 0 turns it
+off, and it disables itself in fullscreen games.
+
+**Text prediction is what stops it trapping you.** Typing fast is not suspicious
+if you're typing words. The detector compares against a frequency dictionary,
+tolerating typos and finger slips: a valid word — or the start of one — lowers
+suspicion and buys you more burst, while pure garbage trips it sooner.
+
+Languages are picked up automatically from your Windows keyboard layouts. Spanish
+and English dictionaries ship with it; others (Japanese in romaji, for instance)
+fall back to a vowel-distribution heuristic.
+
+<br>
+
 ---
 
-## 🎮 Uso
+<div align="center">
 
-| Acción | Cómo |
-|---|---|
-| Desbloquear | Clic en cualquier parte de la pantalla de bloqueo, o `Ctrl+Alt+U` |
-| Modo descanso (dejar de detectar sin cerrar) | `Ctrl+Alt+G` — alterna entre 🐈 *Hay gatos cerca* y 😴 *No hay gatos cerca* |
-| Congelar / descongelar mouse | `Ctrl+Alt+M` (el aviso vive en una esquina) |
-| Avisar "¡aquí hay un gato!" | `Shift+A+S+D` — activa el modo alerta (umbrales más quisquillosos). Da igual si lo pisa el gato: confirma la premisa 🐈 |
-| Minimizar el panel | Clic en el gatito del panel |
-| Mover el panel | Arrástralo a donde quieras (recuerda la posición) |
-| Ocultar / mostrar el panel de estado | `Ctrl+Alt+H` |
+## 🔧 For developers
 
-> Al suspender la PC, la librería de teclado pierde su hook. GatoGuard **se reinicia solo** al despertar (proceso nuevo = hooks nuevos). Si alguna vez no responde, **bandeja → "Reactivar detección"** hace el mismo reinicio manualmente.
+*Everything above is what it does. Everything below is how it does it.*
 
-El **panel de estado** muestra si está vigilando, en descanso o en alerta de gato, más el estado del mouse. Puedes **minimizarlo** (clic en el gatito), **moverlo** arrastrándolo a cualquier esquina, u ocultarlo del todo. Recuerda dónde lo dejaste.
-| Configurar | Clic derecho en el ícono → **Configuración** |
-| Resetear teclado ya | Menú de la bandeja → **Resetear teclado ahora** |
-| Salir | Menú de la bandeja → **Salir** |
-
-La configuración se guarda en `config.json` (junto al script, o en `%AppData%\GatoGuard\` si usas el `.exe`).
-
-### Ajustar sensibilidad
-Si te bota al escribir normal, abre **Configuración** y sube *Teclas en ráfaga* o *Teclas simultáneas*, o apaga la señal que te moleste. Si no detecta al gato lo suficientemente rápido, bájalas.
+</div>
 
 ---
 
-## 🧠 Cómo funciona
+### Contributing
 
-Un *hook* global de teclado alimenta un detector con cada evento. Se dispara si:
+Useful directions:
 
-1. **simultáneas** — ≥ N teclas presionadas dentro de 1.5 s y aún sostenidas;
-2. **ráfaga** — ≥ K teclas distintas en una ventana corta **y** lo tecleado no parece una palabra real (predicción de texto);
-3. **tecla pegada** — una tecla (que no sea espacio/backspace/flechas/modificador) sostenida más de X ms.
+- **A macOS or Linux port.** The detection logic in `deteccion.py` is pure and
+  portable; everything platform-specific is in `winutils.py` and `hooks.py`.
+- **More dictionaries.** Adding a language is a frequency list in the same format
+  as `es_50k.txt`.
+- **False-positive reports.** If it trips on you while you're typing normally, the
+  useful bug report is *what you were typing* and which signal fired — the status
+  panel says which.
 
-Al dispararse, se instala un *hook* supresor (`keyboard.hook(..., suppress=True)`) que bloquea todo el teclado excepto el atajo de desbloqueo, y se muestra un overlay a pantalla completa.
+### What it's made of
 
-## 📦 Estructura
+**Python 3.9+ on Windows**, and the interesting decision is that the keyboard
+engine is **its own, written on `ctypes`**, with no third-party input library.
 
-| Archivo | Qué hace |
+That matters for three reasons. A single persistent low-level hook does both
+detection *and* blocking, instead of installing and removing hooks and losing
+events in the gap. It sees **every** key — F1–F24, the Windows key, media keys —
+rather than the subset a wrapper exposes. And it genuinely blocks `F11`,
+`Win+Ctrl+D` and the other combinations that most tools let slip through.
+
+The same hook is why the **shortcuts are theft-proof**: they're recognised inside
+it, so they still work even when another application has already registered that
+combination globally.
+
+### The files
+
+| file | what it is |
 |---|---|
-| `gatoguard.py` | App: hooks, bandeja, GUI, overlay |
-| `deteccion.py` | Lógica pura de detección + predicción de texto |
-| `winutils.py` | Helpers de Windows (campo de texto, reset, idiomas) |
-| `test_deteccion.py` | Pruebas de la lógica |
-| `es_50k.txt`, `en_50k.txt` | Diccionarios de frecuencias ([FrequencyWords](https://github.com/hermitdave/FrequencyWords)) |
+| `gatoguard.py` | The application: hooks, tray, GUI, lock overlay. |
+| `deteccion.py` | **Pure detection logic** plus text prediction. No Windows in here, which is why it's the file with tests. |
+| `hooks.py` | The keyboard engine on `ctypes`: the low-level hook, retention and re-injection. |
+| `winutils.py` | Windows helpers: the focused text field, keyboard reset, installed languages. |
+| `test_deteccion.py` | Tests for the logic. |
+| `es_50k.txt`, `en_50k.txt` | Frequency dictionaries, from [FrequencyWords](https://github.com/hermitdave/FrequencyWords) (MIT). |
+| `make_icon.py`, `build.ps1` | The icon, and building the `.exe`. |
 
-## 🛠️ Construir el ejecutable
+### Building the executable
+
 ```powershell
 pip install pyinstaller
 ./build.ps1
 ```
-El `.exe` queda en `dist/GatoGuard.exe`.
 
-## 🩷 Apoya el proyecto
-GatoGuard es **gratis** y siempre lo será. Si te ahorró un desastre en el teclado, puedes invitarme un café — cada peso ayuda a que le siga metiendo features. Los donantes aparecen en los créditos. ¡Gracias! 🐈
-<!-- Botón de Sponsor arriba a la derecha del repo, o Ko-fi (por configurar). -->
+It lands in `dist/GatoGuard.exe`.
 
-## 📝 Licencia
-**[PolyForm Noncommercial 1.0.0](LICENSE)** — puedes usar, estudiar, modificar y compartir el software libremente **para fines no comerciales**. No se permite venderlo ni usarlo con fines de lucro. Diccionarios de [FrequencyWords](https://github.com/hermitdave/FrequencyWords) (MIT).
+### The problem that shaped it
+
+The naive version of this program blocks the keyboard *after* deciding there's a
+cat. By then the cat has already typed. Detection needs a handful of events to be
+confident, and those events have already reached whatever you had open.
+
+Hence retention: hold every key for 60 ms, decide, and only then let it through.
+Nobody perceives 60 ms of latency while typing, and the detector gets its window
+for free. The cost is that the program has to be able to re-inject keystrokes
+faithfully — which is the actual reason the keyboard engine is hand-written
+rather than borrowed.
+
+The second consequence is the foreground-app awareness: 60 ms is invisible in a
+text editor and unacceptable in a game, so retention turns itself off in
+fullscreen games, along with the usual game keys (WASD, arrows) being ignored.
+
+### License
+
+**[PolyForm Noncommercial 1.0.0](LICENSE)** — use, study, modify and share it
+freely **for non-commercial purposes**. Selling it or using it for profit is not
+allowed. Dictionaries from [FrequencyWords](https://github.com/hermitdave/FrequencyWords) (MIT).
+
+### Related projects
+
+- **[PawSense](https://www.bitboost.com/pawsense/)** — the original, Windows
+  shareware since the nineties. *Use that if you'd rather pay for something with
+  25 years of shipping behind it;* this exists because it should also be possible
+  not to.
