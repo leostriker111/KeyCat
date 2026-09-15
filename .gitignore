@@ -6,3 +6,6 @@ dist/
 config.json
 .venv/
 venv/
+
+# Salidas de ejecutarlo: no son del proyecto.
+*.log
